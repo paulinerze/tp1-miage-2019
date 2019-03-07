@@ -1,5 +1,5 @@
-# Nom des étudiants de ce binôme 
-(les DEUX noms) : XXXXX et XXXXXX
+﻿# Nom des étudiants de ce binôme 
+(les DEUX noms) : Angeline Le Petit et Pauline Rouzé
 
 Commentaires éventuels des étudiants : XXXXXX
 
