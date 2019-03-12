@@ -1,5 +1,6 @@
 package com.acme.mailreader.bdd;
 
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,25 +40,33 @@ public class MailComparaisonStep {
 	@Given("^un premier mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_premier_mail(boolean importance, Statut statut,
 			String sujet, String date) throws DateIncorrecteException {
-		//TODO
+		mail1.setImportant(importance);
+		mail1.setStatut(statut);
+		mail1.setSujet(sujet);
+		mail1.setDate(Instant.parse(date));
 	}
 
 	@Given("^un second mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_second_mail(boolean importance, Statut statut, String sujet,
 			String date) throws DateIncorrecteException {
-		//TODO
+		mail2.setImportant(importance);
+		mail2.setStatut(statut);
+		mail2.setSujet(sujet);
+		mail2.setDate(Instant.parse(date));
 	}
 
 	
 
 	@When("^je trie$")
 	public void je_trie() throws Throwable {
-		//TODO
+		resultatComparaison = Integer.toString(comparator.compare(mail1,mail2));
+		resuAsString.put(1, resultatComparaison);
 	}
 
 	@Then("^le tri doit retourner \"([^\"]*)\"$")
 	public void le_tri_doit_retourner(String resu) throws Throwable {
 		//TODO
+		//TOASK pas comprit ce qu'on doit mettre dans la hashmap et ce qu'on doit en faire 
 		//assertThat(...);
 	}
 	
