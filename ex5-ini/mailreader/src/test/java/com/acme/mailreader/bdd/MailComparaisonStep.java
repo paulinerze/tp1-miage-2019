@@ -60,14 +60,12 @@ public class MailComparaisonStep {
 	@When("^je trie$")
 	public void je_trie() throws Throwable {
 		resultatComparaison = Integer.toString(comparator.compare(mail1,mail2));
-		resuAsString.put(1, resultatComparaison);
+		
 	}
 
 	@Then("^le tri doit retourner \"([^\"]*)\"$")
 	public void le_tri_doit_retourner(String resu) throws Throwable {
-		//TODO
-		//TOASK pas comprit ce qu'on doit mettre dans la hashmap et ce qu'on doit en faire 
-		//assertThat(...);
+		System.out.println(resuAsString.get(resultatComparaison));
 	}
 	
 
