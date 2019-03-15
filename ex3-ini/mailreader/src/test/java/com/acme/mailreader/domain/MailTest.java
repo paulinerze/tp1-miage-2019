@@ -16,16 +16,17 @@ public class MailTest {
 
 	@Test(expected=DateIncorrecteException.class)
 	public final void erreurSiDateAvant1970() throws DateIncorrecteException {
-					
+		new Mail.Builder("sujet").date(Instant.parse("1968-12-03T10:15:30.00Z")).build();			
 	}
 	
-	@Test
+	@Test(expected=DateIncorrecteException.class)
 	public final void premierPlusPetitSiDateNulle() throws DateIncorrecteException  {
 		Mail mail1 = new Mail.Builder("uyyuy").important(false).statut(Statut.READ).build();
 		Mail mail2 = new Mail.Builder("uyyuy").important(false).statut(Statut.READ).date(Instant.now()).build();
 		assertThat(comparator.compare(mail1, mail2),is(1));
 				
 	}
+	
 
 }
 

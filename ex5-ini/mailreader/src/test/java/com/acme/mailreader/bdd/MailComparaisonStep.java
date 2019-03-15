@@ -25,8 +25,8 @@ import cucumber.api.java.en.When;
 
 public class MailComparaisonStep {
 
-	private Mail mail1;
-	private Mail mail2;
+	private Mail mail1 = new Mail();
+	private Mail mail2 = new Mail();
 	private String resultatComparaison;
 	Comparator<Mail> comparator = new MailComparator();
 	private static final Map<Integer, String> resuAsString = new HashMap<Integer, String>();
@@ -40,6 +40,7 @@ public class MailComparaisonStep {
 	@Given("^un premier mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_premier_mail(boolean importance, Statut statut,
 			String sujet, String date) throws DateIncorrecteException {
+		
 		mail1.setImportant(importance);
 		mail1.setStatut(statut);
 		mail1.setSujet(sujet);
@@ -59,8 +60,7 @@ public class MailComparaisonStep {
 
 	@When("^je trie$")
 	public void je_trie() throws Throwable {
-		resultatComparaison = Integer.toString(comparator.compare(mail1,mail2));
-		
+		resultatComparaison = Integer.toString(comparator.compare(mail1,mail2));		
 	}
 
 	@Then("^le tri doit retourner \"([^\"]*)\"$")

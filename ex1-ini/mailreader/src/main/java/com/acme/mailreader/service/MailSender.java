@@ -1,6 +1,6 @@
-package com.acme.mailreader.infrastructure;
+package com.acme.mailreader.service;
 
-import com.acme.mailreader.model.Mail;
+import com.acme.mailreader.domaine.Mail;
 
 public class MailSender {
 	
