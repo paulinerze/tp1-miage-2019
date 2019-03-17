@@ -14,6 +14,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
+
 /**
  * Les steps (actions) du test
  * 
@@ -25,8 +28,8 @@ import cucumber.api.java.en.When;
 
 public class MailComparaisonStep {
 
-	private Mail mail1 = new Mail();
-	private Mail mail2 = new Mail();
+	private Mail mail1;
+	private Mail mail2;
 	private String resultatComparaison;
 	Comparator<Mail> comparator = new MailComparator();
 	private static final Map<Integer, String> resuAsString = new HashMap<Integer, String>();
@@ -41,31 +44,25 @@ public class MailComparaisonStep {
 	public void un_premier_mail(boolean importance, Statut statut,
 			String sujet, String date) throws DateIncorrecteException {
 		
-		mail1.setImportant(importance);
-		mail1.setStatut(statut);
-		mail1.setSujet(sujet);
-		mail1.setDate(Instant.parse(date));
+		this.mail1 = new Mail.Builder(sujet).important(importance).statut(statut).date(Instant.parse(date)).build();
 	}
 
 	@Given("^un second mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_second_mail(boolean importance, Statut statut, String sujet,
 			String date) throws DateIncorrecteException {
-		mail2.setImportant(importance);
-		mail2.setStatut(statut);
-		mail2.setSujet(sujet);
-		mail2.setDate(Instant.parse(date));
+		
+		this.mail2 = new Mail.Builder(sujet).important(importance).statut(statut).date(Instant.parse(date)).build();
 	}
 
 	
-
 	@When("^je trie$")
 	public void je_trie() throws Throwable {
-		resultatComparaison = Integer.toString(comparator.compare(mail1,mail2));		
+		resultatComparaison = resuAsString.get(comparator.compare(mail1, mail2));
 	}
 
 	@Then("^le tri doit retourner \"([^\"]*)\"$")
 	public void le_tri_doit_retourner(String resu) throws Throwable {
-		System.out.println(resuAsString.get(resultatComparaison));
+		assertThat(resu, is(resultatComparaison));
 	}
 	
 
